@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  /* --- LIGHT MODE (Default) --- */
+  --color-primary: #ff4c00;
+  --color-primary-hover: #f68b1e;
+  --color-primary-light: #fff4e6;
+  --color-secondary: #1d1d1b; /* Dark text for light mode */
+  --bg-purple: #b177da;
+
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-light-gray: #f1f1f2;
+  --color-medium-gray: #666666;
+  --color-dark-gray: #313133;
+  --color-border-gray: #ededed;
+
+  --bg-main: #f1f1f2;
+  --bg-card: #ffffff;
+
+  --color-success: #006b5b;
+  --color-error: #dc3545;
+  --color-warning: #ffc107;
+  --color-link: #007bff;
+}
+
+/* --- DARK MODE OVERRIDES --- */
+/* v4 syntax to detect .dark class or system preference */
+@variant dark (&:where(.dark, .dark *));
+
+.dark {
+  /* We keep the primary orange but swap the neutrals */
+  --bg-main: #0a0a0a; /* Deep black/gray */
+  --bg-card: #161616; /* Slightly lighter card */
+  --color-secondary: #ececec; /* Light text for dark mode */
+  --color-border-gray: #262626;
+  --color-medium-gray: #a1a1a1;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-nexora-orange: var(--color-primary);
+  --color-main-bg: var(--bg-main);
+  --color-card: var(--bg-card);
+  --color-text-main: var(--color-secondary);
+  --color-border-subtle: var(--color-border-gray);
+  --color-medium-gray: var(--color-medium-gray);
+  --spacing-shell: 80vw;
+    --color-success: #006b5b;
+
+
+  /* A very soft, custom shadow for an e-commerce feel */
+  --shadow-navbar: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+@layer base {
+  html,
+  body {
+    @apply h-full m-0 p-0;
+  }
+
+  body {
+    /* Using 'text-text-main' ensures text flips color in dark mode */
+    @apply bg-main-bg text-text-main antialiased transition-colors duration-300;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  * {
+    /* Use 'border-border-subtle' so borders also change color */
+    @apply transition-colors duration-200 border-border-subtle;
+  }
+}

@@ -1,5 +1,4 @@
 import { Category } from "@/src/components/layout/categories/Categories";
-import Navbar from "@/src/components/layout/navbar/Navbar";
 
 export default function ShopLayout({
   children,
@@ -7,11 +6,17 @@ export default function ShopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
-      {/* Navbar will go here later */}
-      <Navbar></Navbar>
-<Category></Category>
-      <main>{children}</main>
+    <section className="flex flex-col min-h-screen">
+      {/* These stay outside the main container to allow full-width backgrounds */}
+      
+      <Category />
+
+      {/* This container centers your product grid and pages */}
+      <main className="flex-1 w-full max-w-360 mx-auto px-4 lg:px-10 py-4">
+        {children}
+      </main>
+
+      {/* Footer would go here later */}
     </section>
   );
 }

@@ -43,7 +43,7 @@ export default function HelpMenu() {
 
       {/* Manual Dropdown Menu */}
       {isOpen && (
-        <div className="absolute top-full right-0 w-60 bg-white border border-gray-200 shadow-xl rounded-md py-3 z-[60] mt-2 animate-in fade-in zoom-in duration-150">
+        <div className="absolute top-full right-0 w-60 bg-white border border-gray-200 shadow-xl rounded-md py-3 z-100 mt-2 animate-in fade-in zoom-in duration-150">
           <Link
             href="/help"
             className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors"

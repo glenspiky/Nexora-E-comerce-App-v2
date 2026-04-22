@@ -11,7 +11,7 @@ import {
   Footprints,
   Glasses,
   X,
-} from "lucide-react"; // Matching your modern icon set
+} from "lucide-react";
 
 const CATEGORIES = [
   { name: "Outfits", icon: Shirt },
@@ -26,7 +26,6 @@ const CATEGORIES = [
 export const Category = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Prevent scrolling when sidebar is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -36,9 +35,11 @@ export const Category = () => {
   }, [isOpen]);
 
   return (
-    <div className="w-full bg-light-gray border-b border-medium-gray/20">
-      <div className="max-w-360 mx-auto px-4 lg:px-10">
-        <div className="flex items-center justify-between relative h-12 lg:h-14 bg-white md:bg-transparent border md:border-none rounded-md md:rounded-none overflow-hidden">
+    /* Added z-30 here to keep it below the Navbar */
+    <div className="w-full bg-light-gray border-b border-medium-gray/20 relative z-30">
+      <div className="max-w-[1440px] mx-auto px-4 lg:px-10">
+        {/* REMOVED 'overflow-hidden' from the div below */}
+        <div className="flex items-center justify-between relative h-12 lg:h-14 bg-white md:bg-transparent border md:border-none rounded-md md:rounded-none">
           {/* LEFT: Category Toggle */}
           <div
             onClick={() => setIsOpen(true)}
@@ -51,7 +52,7 @@ export const Category = () => {
           {/* OVERLAY */}
           {isOpen && (
             <div
-              className="fixed inset-0 bg-black/40 z-[100] md:hidden"
+              className="fixed inset-0 bg-black/40 z-99 md:hidden"
               onClick={() => setIsOpen(false)}
             />
           )}
@@ -59,18 +60,12 @@ export const Category = () => {
           {/* CENTER: Navigation Links / Mobile Sidebar */}
           <ul
             className={`
-    /* Mobile Sidebar Defaults */
-    fixed top-0 left-0 h-full w-[60%] bg-success z-[101] flex flex-col pt-16 gap-6 transition-transform duration-300
-    
-    /* Desktop Horizontal Bar - Triggered at 1135px */
-    min-[1135px]:static min-[1135px]:flex min-[1135px]:flex-row min-[1135px]:h-auto min-[1135px]:w-auto 
-    min-[1135px]:bg-transparent min-[1135px]:pt-0 min-[1135px]:gap-8
-    
-    /* Logic: Slide out on mobile, always visible on desktop */
-    ${isOpen ? "translate-x-0" : "-translate-x-full min-[1135px]:translate-x-0"}
-  `}
+            fixed top-0 left-0 h-full w-[60%] bg-success z-[101] flex flex-col pt-16 gap-6 transition-transform duration-300
+            min-[1135px]:static min-[1135px]:flex min-[1135px]:flex-row min-[1135px]:h-auto min-[1135px]:w-auto min-[1135px]:bg-transparent min-[1135px]:pt-0 min-[1135px]:gap-8
+            ${isOpen ? "translate-x-0" : "-translate-x-full min-[1135px]:translate-x-0"}
+          `}
           >
-            {/* Close Button - Only visible on mobile (hidden at 1135px) */}
+            {/* Close Button Mobile Only */}
             <button
               className="absolute top-4 right-4 text-white min-[1135px]:hidden"
               onClick={() => setIsOpen(false)}
@@ -81,18 +76,13 @@ export const Category = () => {
             {CATEGORIES.map((cat) => (
               <li
                 key={cat.name}
-                /* padding: px-6 on mobile sidebar, px-0 on desktop bar */
                 className="flex items-center gap-2 px-6 min-[1135px]:px-0 group cursor-pointer"
               >
                 <cat.icon
                   size={20}
-                  /* Icon color: white on mobile, primary orange on desktop */
                   className="text-white min-[1135px]:text-primary group-hover:scale-110 transition-transform"
                 />
-                <p
-                  /* Text color: white on mobile, success green on desktop */
-                  className="text-white min-[1135px]:text-success font-semibold text-sm group-hover:text-primary transition-colors"
-                >
+                <p className="text-white min-[1135px]:text-success font-semibold text-sm group-hover:text-primary transition-colors">
                   {cat.name}
                 </p>
               </li>

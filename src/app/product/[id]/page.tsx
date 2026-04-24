@@ -6,10 +6,12 @@ import { ProductInfo } from "@/src/features/product-details/ProductInfo";
 import { PurchaseCard } from "@/src/features/product-details/PurchaseCard";
 import { ProductCard } from "@/src/features/products/ProductCard";
 import { ProductReviews } from "@/src/features/product-details/ProductReviews";
+import { useRecent } from "@/src/context/RecentViewedContext";
 
 export default function ProductDetails() {
   const params = useParams();
   const id = params.id;
+  const { addToRecent } = useRecent()
 
   const [product, setProduct] = useState<any>(null);
   const [related, setRelated] = useState([]);
@@ -38,6 +40,12 @@ export default function ProductDetails() {
     fetchData();
     window.scrollTo(0, 0); // Ensures user starts at top on route change
   }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      addToRecent(product);
+    }
+  }, [product]);
 
   if (loading || !product)
     return (

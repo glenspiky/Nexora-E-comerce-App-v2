@@ -107,7 +107,7 @@ export default function SearchBar() {
               setActiveIndex(-1);
             }}
             placeholder="Search products, brands and categories..."
-            className="w-full border-r-0 h-11 pl-10 pr-10 bg-light-gray border border-solid border-medium-gray rounded-r-none focus-visible:ring-0 focus-visible:border-primary outline-none text-sm text-text-main transition-all"
+            className="w-full border-r-0 h-11 pl-10 pr-10 bg-light-gray border border-solid border-medium-gray md:rounded-r-none focus-visible:ring-0 focus-visible:border-primary outline-none text-sm text-text-main transition-all"
           />
 
           {/* X BUTTON: Ensures clear state */}
@@ -128,7 +128,7 @@ export default function SearchBar() {
 
         <Button
           type="submit"
-          className="h-11 px-6 bg-primary hover:bg-primary-hover text-white font-bold rounded-l-none border border-primary transition-colors uppercase text-xs tracking-wider"
+          className="h-11 px-6 bg-primary hover:bg-primary-hover text-white font-bold ml-0.5 rounded-l-none border border-primary transition-colors uppercase text-xs tracking-wider hidden md:block"
         >
           Search
         </Button>

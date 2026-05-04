@@ -6,7 +6,6 @@ import { CartProvider } from "../context/CartContext";
 import { WishlistProvider } from "../context/WishlistContext";
 import { RecentProvider } from "../context/RecentViewedContext";
 
-// 2. The Definition (This is what is missing!)
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -21,7 +20,7 @@ export default function RootLayout({
         <CartProvider>
           <WishlistProvider>
             <RecentProvider>
-              <div className="flex flex-col min-h-screen bg-white">
+              <div className="flex flex-col min-h-screen w-full bg-white">
                 <Navbar></Navbar>
                 {children}
               </div>

@@ -28,8 +28,8 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col h-full shadow-[0_3px_6px_rgba(0,0,0,0.16),0_3px_6px_rgba(0,0,0,0.23)]">
-      <div className="hidden min-[815px]:flex bg-success text-white py-2 justify-center rounded-t-[5px]">
+    <div className="flex flex-col h-full  border p-0.5 border-gray-300 rounded-t-[5px] ">
+      <div className="hidden min-[815px]:flex  bg-success text-white py-2 justify-center rounded-t-[5px] ">
         <h3 className="font-bold">Top Sales</h3>
       </div>
 

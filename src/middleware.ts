@@ -1,36 +1,32 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { auth } from "@/src/lib/auth/auth"; // Ensure this matches your path
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
-export default async function middleware(request: NextRequest) {
-  // 1. Check for an active session
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
-
+export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 2. Define your Logic
-  const isProtectedRoute =
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/cart") ||
-    pathname.startsWith("/profile");
+  // Protect only the checkout and profile areas
+  const isProtectedPath =
+    pathname.startsWith("/checkout") || pathname.startsWith("/profile");
 
-  const isAuthPage =
-    pathname.startsWith("/login") || pathname.startsWith("/sign-up");
+  if (isProtectedPath) {
+    // Check for the Better Auth session cookie directly
+    const sessionCookie = request.cookies.get("better-auth.session_token");
 
-  // 3. Redirects
-  if (isProtectedRoute && !session) {
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  if (isAuthPage && session) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    if (!sessionCookie) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("callbackURL", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  // Skip static files and images to save CPU cycles on your i3
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    /*
+     * Exclude static files and internal Next.js paths
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+  ],
 };

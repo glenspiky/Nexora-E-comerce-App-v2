@@ -106,8 +106,8 @@ export const Category = () => {
             })}
           </ul>
 
-          <div className="flex flex-col items-center bg-success text-white px-4 py-1 h-13 justify-center min-w-20 cursor-pointer hover:opacity-90 rounded-md mr-1">
-            <p className="text-[10px] uppercase font-bold tracking-tighter opacity-80">
+          <div className="flex flex-col items-center bg-success text-white px-4 py-1 h-10 md:h-13 justify-center min-w-20 cursor-pointer hover:opacity-90 rounded-md mr-1 sm:py-0.5 sm:px-2 ">
+            <p className="text-[10px] uppercase font-bold tracking-tighter opacity-80 ">
               Wallet Bal
             </p>
             <span className="text-xs lg:text-sm font-bold">KES 0.00</span>

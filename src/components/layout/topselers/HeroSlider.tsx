@@ -56,7 +56,7 @@ export const HeroSlider = () => {
         }}
       >
         {slides.map((banner, i) => (
-          <div key={i} className="min-w-full relative">
+          <div key={i} className="min-w-full relative max-w-full">
             <img
               src={banner}
               alt={`Banner ${i + 1}`}

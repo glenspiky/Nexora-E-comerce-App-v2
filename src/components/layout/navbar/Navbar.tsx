@@ -12,12 +12,10 @@ export default function Navbar() {
           <Logo />
         </div>
 
-       
         <div className={styles.searchWrapper}>
           <SearchBar />
         </div>
 
-        
         <div className={styles.actions}>
           <HelpMenu />
           <UserActions />

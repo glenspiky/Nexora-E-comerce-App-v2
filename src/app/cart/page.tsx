@@ -1,13 +1,18 @@
 "use client";
+
 import { useCart } from "@/src/context/CartContext";
-import { useRecent } from "@/src/context/RecentViewedContext"; // 1. Import Recent Hook
+import { useRecent } from "@/src/context/RecentViewedContext";
 import { Trash2, Plus, Minus, History, ShoppingCart } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { authClient } from "@/src/lib/auth/auth-client";
 
 export default function CartPage() {
   const { cart, setCart, subtotal, addToCart } = useCart();
-  const { recent } = useRecent(); // 2. Pull recent items
+  const { recent } = useRecent();
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
 
   const updateQty = (id: number, delta: number) => {
     setCart(
@@ -24,12 +29,23 @@ export default function CartPage() {
     toast.error("Item removed from cart");
   };
 
+  const handleCheckoutClick = () => {
+    if (!session) {
+      // User is not logged in, redirect to login with callback
+      toast("Please login to complete your purchase", { icon: "🔒" });
+      router.push("/login?callbackURL=/checkout");
+    } else {
+      // User is logged in, proceed to checkout
+      router.push("/checkout");
+    }
+  };
+
   return (
     <div className="max-w-[1200px] mx-auto p-4 space-y-10">
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
         {/* Main Cart Section */}
         <div className="flex-[2] border border-border-subtle rounded-xl p-6 bg-card">
-          <h1 className="text-2xl font-black border-b border-border-subtle pb-4 mb-6">
+          <h1 className="text-2xl font-black border-b border-border-subtle pb-4 mb-6 uppercase">
             Your Cart ({cart.length})
           </h1>
 
@@ -38,7 +54,7 @@ export default function CartPage() {
               <p className="text-medium-gray text-lg">Your cart is empty.</p>
               <Link
                 href="/"
-                className="bg-primary text-white px-10 py-3 rounded-lg font-bold hover:opacity-90 transition-all shadow-md"
+                className="bg-[#006b5b] text-white px-10 py-3 rounded-lg font-bold hover:opacity-90 transition-all shadow-md"
               >
                 Shop Now
               </Link>
@@ -62,7 +78,7 @@ export default function CartPage() {
                       <h2 className="font-bold text-lg leading-tight mb-1">
                         {item.title}
                       </h2>
-                      <p className="text-primary font-black">
+                      <p className="text-[#006b5b] font-black">
                         KES {item.price.toLocaleString()}
                       </p>
                     </div>
@@ -71,7 +87,7 @@ export default function CartPage() {
                   <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-8">
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
+                      className="flex items-center gap-2 text-[#ff4c00] font-bold text-xs uppercase tracking-widest hover:opacity-80 transition-opacity"
                     >
                       <Trash2 size={20} />
                       Remove
@@ -81,7 +97,7 @@ export default function CartPage() {
                       <button
                         onClick={() => updateQty(item.id, -1)}
                         disabled={item.quantity <= 1}
-                        className="w-8 h-8 flex items-center justify-center bg-medium-gray text-white rounded shadow-sm hover:bg-primary-hover disabled:bg-border-subtle disabled:text-medium-gray transition-colors"
+                        className="w-8 h-8 flex items-center justify-center bg-gray-400 text-white rounded shadow-sm hover:bg-gray-500 disabled:bg-gray-200 transition-colors"
                       >
                         <Minus size={16} strokeWidth={3} />
                       </button>
@@ -92,7 +108,7 @@ export default function CartPage() {
 
                       <button
                         onClick={() => updateQty(item.id, 1)}
-                        className="w-8 h-8 flex items-center justify-center bg-success text-white rounded shadow-sm hover:bg-primary-hover transition-colors"
+                        className="w-8 h-8 flex items-center justify-center bg-[#006b5b] text-white rounded shadow-sm hover:opacity-90 transition-colors"
                       >
                         <Plus size={16} strokeWidth={3} />
                       </button>
@@ -106,46 +122,42 @@ export default function CartPage() {
 
         {/* Summary Sidebar */}
         <aside className="flex-1 h-fit sticky top-24 p-8 bg-card rounded-xl border border-border-subtle shadow-lg">
-          <h2 className="font-black mb-6 uppercase tracking-[0.2em] text-[10px] text-medium-gray">
+          <h2 className="font-black mb-6 uppercase tracking-[0.2em] text-[10px] text-gray-500">
             Cart Summary
           </h2>
 
           <div className="space-y-4">
             <div className="flex justify-between text-sm">
-              <span className="text-medium-gray">Items ({cart.length})</span>
+              <span className="text-gray-500">Items ({cart.length})</span>
               <span className="font-bold">KES {subtotal.toLocaleString()}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-medium-gray">Shipping</span>
-              <span className="text-success font-bold">Free</span>
+              <span className="text-gray-500">Shipping</span>
+              <span className="text-[#006b5b] font-bold">Free</span>
             </div>
 
             <div className="flex justify-between pt-6 border-t border-border-subtle">
               <span className="font-black text-xl">Total</span>
-              <span className="font-black text-xl text-text-main">
+              <span className="font-black text-xl text-black">
                 KES {subtotal.toLocaleString()}
               </span>
             </div>
           </div>
 
-          <Link
-            href={cart.length > 0 ? "/checkout" : "#"}
-            className="block mt-8"
+          <button
+            onClick={handleCheckoutClick}
+            disabled={cart.length === 0}
+            className={`w-full mt-8 py-4 px-6 rounded-lg font-black text-sm tracking-[0.15em] uppercase transition-all shadow-md
+              ${
+                cart.length > 0
+                  ? "bg-[#ff4c00] text-white hover:opacity-90"
+                  : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              }`}
           >
-            <button
-              disabled={cart.length === 0}
-              className={`w-full py-4 px-6 rounded-lg font-black text-sm tracking-[0.15em] uppercase transition-all shadow-md
-                ${
-                  cart.length > 0
-                    ? "bg-success text-white hover:opacity-90"
-                    : "bg-border-subtle text-medium-gray cursor-not-allowed"
-                }`}
-            >
-              Proceed to Checkout
-            </button>
-          </Link>
+            Proceed to Checkout
+          </button>
 
-          <p className="mt-4 text-[10px] text-center text-medium-gray uppercase tracking-tighter">
+          <p className="mt-4 text-[10px] text-center text-gray-500 uppercase tracking-tighter">
             Secure checkout powered by Nexora
           </p>
         </aside>
@@ -155,7 +167,7 @@ export default function CartPage() {
       {recent.length > 0 && (
         <section className="pt-10 border-t border-border-subtle">
           <div className="flex items-center gap-3 mb-6">
-            <History size={24} className="text-primary" />
+            <History size={24} className="text-[#006b5b]" />
             <h2 className="text-2xl font-black uppercase tracking-tight">
               Recently Viewed
             </h2>
@@ -175,17 +187,17 @@ export default function CartPage() {
                       className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>
-                  <h3 className="font-bold text-sm truncate mb-1 group-hover:text-primary transition-colors">
+                  <h3 className="font-bold text-sm truncate mb-1 group-hover:text-[#006b5b] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-primary font-black text-sm mb-3">
+                  <p className="text-[#006b5b] font-black text-sm mb-3">
                     KES {item.price.toLocaleString()}
                   </p>
                 </Link>
 
                 <button
                   onClick={() => addToCart(item)}
-                  className="w-full py-2 bg-gray-50 hover:bg-primary hover:text-white border border-border-subtle hover:border-primary text-[10px] font-black uppercase rounded-lg transition-all flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-gray-50 hover:bg-[#006b5b] hover:text-white border border-border-subtle hover:border-[#006b5b] text-[10px] font-black uppercase rounded-lg transition-all flex items-center justify-center gap-2"
                 >
                   <ShoppingCart size={12} />
                   Add to Cart

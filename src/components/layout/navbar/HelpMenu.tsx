@@ -31,10 +31,10 @@ export default function HelpMenu() {
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1 hover:text-[var(--color-primary)] p-2 transition-colors"
+        className="flex items-center gap-1 hover:text-(--color-primary) p-2 transition-colors"
       >
         <HelpCircle size={24} />
-        <span className="text-sm font-bold hidden lg:block">Help</span>
+        <span className="text-sm  hidden lg:block">Help</span>
         <ChevronDown
           size={16}
           className={`transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
@@ -53,7 +53,7 @@ export default function HelpMenu() {
           </Link>
 
           <Link
-            href="/track-order"
+            href="/dashboard"
             className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 text-sm font-medium transition-colors"
           >
             <Truck size={18} className="text-[var(--color-primary)]" />

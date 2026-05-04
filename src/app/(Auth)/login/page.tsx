@@ -4,33 +4,71 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/src/lib/auth/auth-client";
 
+import FormError from "@/src/components/shared/error/FormError";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const [FError, setFError] = useState("");
+  // const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  // const letters = [
+  //   "a",
+  //   "b",
+  //   "c",
+  //   "d",
+  //   "e",
+  //   "f",
+  //   "g",
+  //   "h",
+  //   "i",
+  //   "j",
+  //   "k",
+  //   "l",
+  //   "l",
+  //   "m",
+  //   "n",
+  //   "o",
+  //   "p",
+  //   "q",
+  //   "r",
+  //   "s",
+  //   "t",
+  //   "u",
+  //   "v",
+  //   "w",
+  //   "x",
+  //   "y",
+  //   "z",
+  // ];
+  
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
+  
+ 
 
+    setLoading(true);
     const { data, error } = await authClient.signIn.email({
       email,
       password,
-      callbackURL: "/dashboard",
+      callbackURL: "/",
     });
 
     if (error) {
       // Better-Auth provides clear messages like "Invalid email or password"
-      alert(error.message || "Failed to login");
+      setFError(error.message || "Failed to login");
     } else {
       // On success, Better-Auth handles the redirect to callbackURL automatically
       console.log("Logged in successfully:", data);
     }
     setLoading(false);
   }
-
+  //setferror timeout
+  setTimeout(() => {
+    setFError("");
+  }, 5000);
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+    <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4 ">
       <div className="w-full max-w-md p-8 bg-[#aca6a554] rounded-lg shadow-lg animate-in fade-in slide-in-from-bottom-8 duration-700">
         <h2 className="text-2xl font-semibold text-[#006b5b] mb-1">
           Welcome Back
@@ -38,6 +76,7 @@ export default function Login() {
         <h3 className="text-sm font-normal text-black/50 mb-6">
           Login to your Nexora account
         </h3>
+        <FormError FError={FError} setFError={""} />
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col">

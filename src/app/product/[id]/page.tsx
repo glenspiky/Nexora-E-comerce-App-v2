@@ -66,18 +66,15 @@ export default function ProductDetails() {
          />
        </div>
 
-       {/* 2. Center: Core Info - Expanded to 40% */}
        <div className="w-full lg:w-[40%]">
          <ProductInfo product={product} />
        </div>
 
-       {/* 3. Right: Purchase Action Card - Kept at 25% */}
        <div className="w-full lg:w-[25%] lg:sticky lg:top-24">
          <PurchaseCard product={product} />
        </div>
      </div>
 
-     {/* --- MIDDLE SECTION: Detailed Reviews --- */}
      <section className="mt-16 pt-10 border-t border-gray-100">
        <div className="max-w-[850px]">
          <h2 className="text-2xl font-bold mb-8 text-gray-900 uppercase tracking-tight">
@@ -87,7 +84,6 @@ export default function ProductDetails() {
        </div>
      </section>
 
-     {/* --- BOTTOM SECTION: Recommendations --- */}
      <section className="mt-20 pt-10 border-t border-gray-100 pb-10">
        <h2 className="text-xl font-bold mb-8 text-gray-800 uppercase tracking-wide">
          You might also like

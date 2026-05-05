@@ -1,16 +1,13 @@
-// proxy.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protect only the checkout and profile areas
   const isProtectedPath =
     pathname.startsWith("/checkout") || pathname.startsWith("/profile");
 
   if (isProtectedPath) {
-    // Check for the Better Auth session cookie directly
     const sessionCookie = request.cookies.get("better-auth.session_token");
 
     if (!sessionCookie) {
@@ -24,10 +21,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Exclude static files and internal Next.js paths
-     */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

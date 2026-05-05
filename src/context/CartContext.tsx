@@ -8,33 +8,42 @@ import React, {
 } from "react";
 import toast, { Toaster } from "react-hot-toast"; // Make sure toast is imported here
 
-const CartContext = createContext<any>(null);
-
+type Product = {
+  id: number;
+  title: string;
+  thumbnail: string;
+  price: number;
+};
+type CartItem = Product & {
+  quantity: number;
+};
+const CartContext = createContext<{
+  cart: CartItem[];
+  addToCart: (product: Product, quantity?: number) => void;
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  subtotal: number;
+} | null>(null);
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cart, setCart] = useState<any[]>([]);
-  const isLoaded = useRef(false);
-
-  // Load from localStorage
-  useEffect(() => {
-    const savedCart = localStorage.getItem("myShopCart");
-    if (savedCart) {
-      try {
-        setCart(JSON.parse(savedCart));
-      } catch (e) {
-        console.error("Failed to parse cart", e);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      const savedCart = localStorage.getItem("myShopCart");
+      if (savedCart) {
+        try {
+          return JSON.parse(savedCart);
+        } catch {
+          return [];
+        }
       }
     }
-    isLoaded.current = true;
-  }, []);
+    return [];
+  });
 
   // Save to localStorage
   useEffect(() => {
-    if (isLoaded.current) {
-      localStorage.setItem("myShopCart", JSON.stringify(cart));
-    }
+    localStorage.setItem("myShopCart", JSON.stringify(cart));
   }, [cart]);
 
-  const addToCart = (product: any, quantity = 1) => {
+  const addToCart = (product: Product, quantity = 1) => {
     const actualQty = Math.max(1, quantity);
 
     // --- ADDED THIS: Trigger the toast here ---
@@ -73,4 +82,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useCart = () => useContext(CartContext);
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) throw new Error("useCart must be used within CartProvider");
+  return context;
+};

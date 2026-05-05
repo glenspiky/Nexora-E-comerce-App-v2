@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/src/lib/auth/auth-client";
 
+
 export default function CartPage() {
   const { cart, setCart, subtotal, addToCart } = useCart();
   const { recent } = useRecent();

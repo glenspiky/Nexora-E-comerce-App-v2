@@ -1,12 +1,12 @@
 export const dynamic = "force-dynamic";
+
 import { auth } from "@/src/lib/auth/auth";
-import { headers } from "next/headers"; // 1. Import headers
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import AdminProfileView from "./AdminProfileView";
 import UserProfileView from "./UserProfileView";
 
 export default async function ProfilePage() {
-  // 2. Await the headers and pass them to the getSession call
   const session = await auth.api.getSession({
     headers: await headers(),
   });

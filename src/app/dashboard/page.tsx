@@ -15,10 +15,16 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+interface WishlistItem {
+  id: string;
+  title: string;
+  price: number;
+  thumbnail: string[]; 
+}
+
 export default function DashboardPage() {
   const { data: session } = authClient.useSession();
-  const { wishlist } = useWishlist();
-  const { cart } = useCart();
+const { wishlist } = useWishlist() as { wishlist: WishlistItem[] };  const { cart } = useCart();
 
   // Mock data for your Order Tracking - you can replace this with a DB call later
   const recentOrders = [
@@ -148,7 +154,7 @@ export default function DashboardPage() {
               </h2>
             </div>
             <div className="p-4 space-y-4">
-              {wishlist.slice(0, 3).map((item) => (
+              {wishlist.slice(0, 3).map((item: WishlistItem) => (
                 <Link
                   key={item.id}
                   href={`/product/${item.id}`}

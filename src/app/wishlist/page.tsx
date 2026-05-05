@@ -4,6 +4,15 @@ import { useCart } from "@/src/context/CartContext";
 import { Trash2, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 
+interface WishlistItem {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
+}
+
+
+
 export default function WishlistPage() {
   const { wishlist, toggleWishlist } = useWishlist();
   const { addToCart } = useCart();
@@ -20,7 +29,7 @@ export default function WishlistPage() {
             <ShoppingCart className="text-medium-gray" size={32} />
           </div>
           <p className="text-medium-gray text-lg">
-            You haven't saved any items yet.
+            You haven&apos;t saved any items yet.
           </p>
           <Link
             href="/"
@@ -31,7 +40,7 @@ export default function WishlistPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-4">
-          {wishlist.map((item) => (
+          {wishlist.map((item:WishlistItem) => (
             <div
               key={item.id}
               className="flex flex-col sm:flex-row justify-between items-center border border-border-subtle rounded-lg p-4 bg-card shadow-sm gap-4"

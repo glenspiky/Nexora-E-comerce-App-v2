@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { auth } from "@/src/lib/auth/auth";
+import { getAuth } from "@/src/lib/auth/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
@@ -9,6 +9,8 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const auth = await getAuth();
+
   // 1. Fetch the session with headers
   const session = await auth.api.getSession({
     headers: await headers(),

@@ -1,7 +1,7 @@
 "use client";
 
 import { UserMinus, Loader2, ShieldCheck } from "lucide-react";
-import { deleteProduct } from "./users/actions";
+import { deleteUserAction } from "./users/actions";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
@@ -15,7 +15,7 @@ export function ProductActions({ productId }: { productId: string }) {
     const t = toast.loading("Removing product...");
 
     try {
-      const res = await deleteProduct(productId);
+      const res = await deleteUserAction(productId);
       if (res.success) {
         toast.success("Product deleted", { id: t });
       } else {

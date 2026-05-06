@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAuth } from "@/src/lib/auth/auth";
 import { toNextJsHandler } from "better-auth/next-js";
 const auth = await getAuth();

@@ -9,8 +9,14 @@ export async function getAuth() {
 
   return betterAuth({
     database: mongodbAdapter(db),
+    // ADD THIS: It tells the server its home address
+    baseURL: process.env.BETTER_AUTH_URL,
     emailAndPassword: {
       enabled: true,
+    },
+    // ADD THIS: Ensures the server trusts the Vercel proxy headers
+    advanced: {
+      useSecureCookies: true,
     },
     plugins: [admin()],
   });

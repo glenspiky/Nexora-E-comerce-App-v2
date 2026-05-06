@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Package, AlertCircle } from "lucide-react";
 import ProductTableClient from "./ProductTableClient";
 type Product = {

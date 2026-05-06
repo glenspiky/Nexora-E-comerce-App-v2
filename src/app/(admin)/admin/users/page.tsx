@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import clientPromise from "@/src/lib/auth/db";
 import { Users } from "lucide-react";
 import UserTableClient from "./UserTableClient";

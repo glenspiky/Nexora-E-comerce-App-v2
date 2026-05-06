@@ -1,11 +1,24 @@
 import clientPromise from "@/src/lib/auth/db";
 import { Users } from "lucide-react";
 import UserTableClient from "./UserTableClient";
+import { ObjectId } from "mongodb"; // Import this
 
-async function getUsers() {
+// Define exactly what the Database object looks like
+interface DBUser {
+  _id: ObjectId;
+  role: string;
+  name: string;
+  email: string;
+}
+
+async function getUsers(): Promise<DBUser[]> {
   const client = await clientPromise;
-  const db = client.db("test"); // Targets the 'test' database
-  const users = await db.collection("user").find({}).toArray(); // Collection is 'user'
+  const db = client.db("test");
+  // Cast the result to our DBUser interface
+  const users = (await db
+    .collection("user")
+    .find({})
+    .toArray()) as unknown as DBUser[];
   return users;
 }
 
@@ -14,28 +27,15 @@ export default async function AdminUsers() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold flex items-center gap-2 text-zinc-900">
-          <Users className="w-6 h-6" /> User Management
-        </h1>
-        <p className="text-sm text-zinc-500">Total Users: {users.length}</p>
-      </div>
+      {/* ... header code ... */}
 
       <div className="bg-white border border-zinc-200 rounded-xl overflow-hidden shadow-sm">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-zinc-50 border-b border-zinc-200">
-            <tr>
-              <th className="p-4 font-medium text-zinc-600">User</th>
-              <th className="p-4 font-medium text-zinc-600">Role</th>
-              <th className="p-4 font-medium text-zinc-600 text-right">
-                Actions
-              </th>
-            </tr>
-          </thead>
+          {/* ... thead code ... */}
           <tbody>
-            {users.map((user: any) => (
+            {users.map((user) => (
               <tr
-                key={user._id.toString()}
+                key={user._id.toString()} // toString() is vital here
                 className="border-b border-zinc-100 hover:bg-zinc-50 transition-colors"
               >
                 <td className="p-4">
@@ -57,6 +57,7 @@ export default async function AdminUsers() {
                   </span>
                 </td>
                 <td className="p-4 text-right">
+                  {/* Convert ObjectId to string for the client component */}
                   <UserTableClient userId={user._id.toString()} />
                 </td>
               </tr>

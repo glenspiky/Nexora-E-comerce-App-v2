@@ -1,7 +1,12 @@
 import { Shield, Settings, Users, Package } from "lucide-react";
 import Link from "next/link";
+import { User } from "better-auth";
 
-export default function AdminProfileView({ user }: { user: any }) {
+interface AdminProfileViewProps {
+  user: User;
+}
+
+export default function AdminProfileView({ user }: AdminProfileViewProps) {
   return (
     <div className="space-y-8">
       <div className="flex items-center gap-4 border-b pb-6">

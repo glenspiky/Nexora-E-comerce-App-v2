@@ -1,11 +1,17 @@
-import { User, ShoppingBag, Heart, CreditCard } from "lucide-react";
+import { User } from "better-auth";
 
-export default function UserProfileView({ user }: { user: any }) {
+import { User2Icon, ShoppingBag, Heart, CreditCard } from "lucide-react";
+
+
+interface UserProfileViewProps {
+  user: User;
+}
+export default function UserProfileView({ user }:UserProfileViewProps ) {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       <div className="text-center">
         <div className="w-24 h-24 rounded-full bg-zinc-100 mx-auto mb-4 flex items-center justify-center">
-          <User size={48} className="text-zinc-400" />
+          <User2Icon size={48} className="text-zinc-400" />
         </div>
         <h1 className="text-2xl font-bold">{user.name}</h1>
         <p className="text-zinc-500">{user.email}</p>

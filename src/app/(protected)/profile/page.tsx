@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import AdminProfileView from "./AdminProfileView";
 import UserProfileView from "./UserProfileView";
 import { getAuth } from "@/src/lib/auth/auth";
-
 export default async function ProfilePage() {
   const auth = await getAuth();
 

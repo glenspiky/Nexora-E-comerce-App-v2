@@ -1,6 +1,11 @@
 import { Package, AlertCircle } from "lucide-react";
 import ProductTableClient from "./ProductTableClient";
-
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+};
 async function getProducts() {
   try {
     // Adding a small timeout/no-cache to ensure fresh data
@@ -63,7 +68,7 @@ export default async function AdminProducts() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product: any) => (
+            {products.map((product: Product) => (
               <tr
                 key={product.id}
                 className="border-b border-zinc-100 hover:bg-zinc-50 transition-colors"

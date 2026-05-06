@@ -4,13 +4,13 @@ import { ShieldCheck, UserMinus, Loader2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { deleteProductAction } from "./actions";
-
 export default function ProductTableClient({
   productId,
 }: {
   productId: string;
 }) {
   const [isPending, setIsPending] = useState(false);
+  const [removed, setRemoved] = useState(false); // ✅ NEW
 
   async function handleDelete() {
     if (!confirm("Remove this product from inventory?")) return;
@@ -20,7 +20,9 @@ export default function ProductTableClient({
 
     try {
       const res = await deleteProductAction(productId);
+
       if (res.success) {
+        setRemoved(true); // ✅ HIDE ROW
         toast.success("Product removed", { id: t });
       } else {
         toast.error("Failed to delete", { id: t });
@@ -31,6 +33,9 @@ export default function ProductTableClient({
       setIsPending(false);
     }
   }
+
+  // ✅ THIS removes it from UI
+  if (removed) return null;
 
   return (
     <div className="flex justify-end gap-2">

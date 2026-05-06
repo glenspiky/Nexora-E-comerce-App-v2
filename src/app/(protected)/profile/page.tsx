@@ -6,8 +6,9 @@ import AdminProfileView from "./AdminProfileView";
 import UserProfileView from "./UserProfileView";
 import { getAuth } from "@/src/lib/auth/auth";
 
-const auth = await getAuth();
 export default async function ProfilePage() {
+  const auth = await getAuth();
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });

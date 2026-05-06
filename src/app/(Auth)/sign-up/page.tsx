@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/src/lib/auth/auth-client";
@@ -41,9 +41,15 @@ export default function SignUp() {
       }, 2500);
     }
   }
-setTimeout(() => {
-  setFError("");
-}, 5000);
+useEffect(() => {
+  if (!FError) return;
+
+  const timer = setTimeout(() => {
+    setFError("");
+  }, 5000);
+
+  return () => clearTimeout(timer);
+}, [FError]);
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
       <div className="w-full max-w-md p-8 bg-[#aca6a554] rounded-lg shadow-lg animate-in fade-in slide-in-from-bottom-8 duration-700">

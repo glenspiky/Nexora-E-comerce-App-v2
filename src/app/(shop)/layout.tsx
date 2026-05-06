@@ -17,6 +17,7 @@ export default function ShopLayout({
       </main>
 
       {/* Footer would go here later */}
+      
     </section>
   );
 }

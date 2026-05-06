@@ -1,6 +1,15 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: #ffffff; /* Or your bg-white variable */
+  border-bottom: 1px solid #f0f0f0; /* Optional: adds a nice separation */
+}
+
 .container {
   display: flex;
-  flex-wrap: wrap; /* Allows items to stack */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -8,28 +17,27 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0.75rem 1rem;
+  /* Remove position: sticky from here */
 }
-
 .logoWrapper {
-  order: 1; /* Stay on the left */
+  order: 1; 
 }
 
 .actions {
-  order: 2; /* Move to the top right */
+  order: 2; 
   display: flex;
   align-items: center;
   gap: 1.5rem;
 }
 
 .searchWrapper {
-  order: 3; /* Move to the bottom row */
-  width: 100%; /* Forces it to span the full width below the others */
+  order: 3; 
+  width: 100%; 
 }
 
-/* The 670px "Single Line" Snap */
 @media (min-width: 670px) {
   .container {
-    flex-wrap: nowrap !important; /* Pulls everything back into one line */
+    flex-wrap: nowrap !important; 
   }
 
   .logoWrapper {

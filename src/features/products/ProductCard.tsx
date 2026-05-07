@@ -4,8 +4,9 @@ import Link from "next/link";
 import { Star, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/src/context/CartContext";
 import { useWishlist } from "@/src/context/WishlistContext"; // 1. Import Wishlist hook
+import { Product } from "@/src/types/types";
 
-export const ProductCard = ({ item }: { item: any }) => {
+export const ProductCard = ({ item }: { item: Product }) => {
   const { addToCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist(); // 2. Access wishlist methods
 

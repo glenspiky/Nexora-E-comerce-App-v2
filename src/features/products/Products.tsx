@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { ProductList } from "./ProductList";
 import { SkeletonLoader } from "@/src/components/ui/skeleton/Skeleton";
+import { Product } from "@/src/types/types";
 
 export const Products = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ export const Products = () => {
         const response = await fetch("https://dummyjson.com/products?limit=100");
         const data = await response.json();
         const highQuality = data.products.filter(
-          (item: any) => new Set(item.images).size >= 2
+          (item: Product) => new Set(item.images).size >= 2
         );
         setProducts(highQuality);
       } catch (error) {
@@ -33,6 +34,7 @@ export const Products = () => {
           <SkeletonLoader count={10} />
         ) : (
           <ProductList products={products} />
+          
         )}
       </div>
     </section>

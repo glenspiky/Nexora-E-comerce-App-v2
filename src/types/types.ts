@@ -6,7 +6,12 @@ export type Product = {
   price: number;
   thumbnail: string;
   images: string[];
-  reviews:string[]
+  reviews: string[];
+  meta: {
+    qrCode:string
+    quantity:number
+  };
+  rating:number
 };
 type DBUser = {
   _id: ObjectId;

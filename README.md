@@ -1,36 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nexora Store
+
+Modern full-stack e-commerce portfolio project built with **Next.js**, **Tailwind CSS**, **MongoDB**, and **Context API**.
+
+## Live Demo
+
+🔗 [https://nexora-store-eight.vercel.app/](https://nexora-store-eight.vercel.app/)
+
+---
+
+## Features
+
+* Modern responsive e-commerce UI
+* Product listings and dynamic product pages
+* Shopping cart functionality
+* Wishlist system
+* Admin dashboard
+* Authentication system
+* Payment integration
+* Order tracking
+* Product reviews and ratings
+* Product search and filtering
+* State management using Context API
+* MongoDB database integration
+* Dynamic routing with Next.js
+* Mobile-first responsive design
+* Reusable and scalable component architecture
+* Performance optimizations for faster loading and smoother user experience
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* Tailwind CSS
+* Context API
+
+### Backend & Database
+
+* MongoDB
+* Next.js API Routes
+
+---
+
+## Screenshots
+
+*Add screenshots here if available.*
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+```
+
+### Navigate into the project
+
+```bash
+cd YOUR_REPOSITORY
+```
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Create environment variables
+
+Create a `.env.local` file and add:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+```
+
+### Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+/app
+/components
+/context
+/lib
+/models
+/public
+/styles
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What I Learned
 
-## Deploy on Vercel
+Through building Nexora Store, I improved my understanding of:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Full-stack application architecture with Next.js
+* Managing global state using Context API
+* MongoDB integration and database management
+* Authentication and protected routes
+* Building scalable and reusable UI components
+* Responsive UI/UX design principles
+* Dynamic routing and rendering
+* E-commerce application workflows
+* Admin dashboard architecture
+* Performance optimization techniques
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Author
+
+**Glen Barasa**
+
+* Portfolio: [https://glen-barasa.vercel.app](https://glen-barasa.vercel.app)
+* GitHub: [https://github.com/glenspiky](https://github.com/glenspiky)

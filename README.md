@@ -56,13 +56,13 @@ Modern full-stack e-commerce portfolio project built with **Next.js**, **Tailwin
 ### Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+git clone https://github.com/glenspiky/Nexora-E-comerce-App-v2.git
 ```
 
 ### Navigate into the project
 
 ```bash
-cd YOUR_REPOSITORY
+cd Nexora-Ecommerce-v2
 ```
 
 ### Install dependencies
